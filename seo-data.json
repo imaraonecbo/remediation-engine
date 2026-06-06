@@ -1,0 +1,156 @@
+[
+  {
+    "slug": "sql-injection-nodejs",
+    "vulnerability": "SQL Injection (SQLi)",
+    "framework": "Node.js Express",
+    "severity": "CRITICAL",
+    "remediation": "Stop using string concatenation template literals. Implement parameterized queries: pool.query('SELECT * FROM accounts WHERE id = ?', [userInput])"
+  },
+  {
+    "slug": "clickjacking-express",
+    "vulnerability": "Clickjacking Exposure",
+    "framework": "ExpressJS",
+    "severity": "HIGH",
+    "remediation": "Apply anti-framing protections. Configure the 'X-Frame-Options' header explicitly to 'DENY' or 'SAMEORIGIN' via server middleware."
+  },
+  {
+    "slug": "weak-jwt-python",
+    "vulnerability": "Weak JWT Token Signature",
+    "framework": "Python Flask",
+    "severity": "HIGH",
+    "remediation": "Ensure your signing loop explicitly checks and enforces strong signing algorithms like HS256 or RS256, and completely rejects 'none' algorithms."
+  },
+  {
+    "slug": "csrf-laravel",
+    "vulnerability": "Cross-Site Request Forgery (CSRF)",
+    "framework": "PHP Laravel",
+    "severity": "HIGH",
+    "remediation": "Ensure the VerifyCsrfToken global middleware is active. Include the stateful @csrf token payload marker inside all HTML form submission assets."
+  },
+  {
+    "slug": "command-injection-django",
+    "vulnerability": "OS Command Injection",
+    "framework": "Python Django",
+    "severity": "CRITICAL",
+    "remediation": "Avoid passing raw text directly to os.system() or subprocess.Popen(shell=True). Use structured array formatting arguments with shell=False instead."
+  },
+  {
+    "slug": "bola-broken-object-authorization-node",
+    "vulnerability": "Broken Object Level Authorization (BOLA)",
+    "framework": "Node.js Restify",
+    "severity": "CRITICAL",
+    "remediation": "Never pull client database records based solely on URL parameter request tracking keys like req.params.id without verifying explicit ownership scopes first."
+  },
+  {
+    "slug": "ssrf-axios-backend",
+    "vulnerability": "Server-Side Request Forgery (SSRF)",
+    "framework": "Node.js Axios",
+    "severity": "HIGH",
+    "remediation": "Implement strict whitelist verification parsing loops on incoming target URLs before allowing backend client execution routines to issue network calls."
+  },
+  {
+    "slug": "hardcoded-secrets-spring-boot",
+    "vulnerability": "Exposed Cryptographic Plaintext Tokens",
+    "framework": "Java Spring Boot",
+    "severity": "CRITICAL",
+    "remediation": "Extract secret string properties out of application.properties files completely. Ingest them securely at runtime via environment value wrappers."
+  },
+  {
+    "slug": "xss-reflected-php",
+    "vulnerability": "Reflected Cross-Site Scripting (XSS)",
+    "framework": "Vanilla PHP",
+    "severity": "HIGH",
+    "remediation": "Sanitize and encode all untrusted URL output structures before rendering them into the DOM layout canvas. Run string data through htmlspecialchars()."
+  },
+  {
+    "slug": "insecure-deserialization-python",
+    "vulnerability": "Insecure Object Deserialization",
+    "framework": "Python PyYAML",
+    "severity": "CRITICAL",
+    "remediation": "Cease loading untrusted config string files via yaml.load(). Enforce secure parsing mechanics by migrating execution strictly to yaml.safe_load()."
+  },
+  {
+    "slug": "broken-authentication-gin",
+    "vulnerability": "Broken Session Authentication",
+    "framework": "Go Gin Gonic",
+    "severity": "CRITICAL",
+    "remediation": "Set HttpOnly, Secure, and SameSite=Strict flags on all auth token session cookies to prevent programmatic client-side exfiltration vectors."
+  },
+  {
+    "slug": "cors-misconfiguration-express",
+    "vulnerability": "Permissive CORS Origin Policy",
+    "framework": "Node.js Express",
+    "severity": "MEDIUM",
+    "remediation": "Remove cors({origin: '*'}) configurations from internal authenticated transaction channels. Enforce explicitly defined origin access whitelists."
+  },
+  {
+    "slug": "path-traversal-fastapi",
+    "vulnerability": "Arbitrary File Path Traversal",
+    "framework": "Python FastAPI",
+    "severity": "HIGH",
+    "remediation": "Sanitize target download strings using os.path.basename(). Block directory hopping mutations like '../../' from accessing arbitrary file structures."
+  },
+  {
+    "slug": "mass-assignment-rails",
+    "vulnerability": "Mass Assignment Parameter Injection",
+    "framework": "Ruby on Rails",
+    "severity": "HIGH",
+    "remediation": "Enforce strict parameter structure criteria utilizing Strong Parameters. Use params.require().permit() loops to explicitly whitelist updates."
+  },
+  {
+    "slug": "missing-rate-limit-aspnet",
+    "vulnerability": "API Rate Limiting Saturation Failure",
+    "framework": "ASP.NET Core",
+    "severity": "MEDIUM",
+    "remediation": "Implement server-side token bucket limit mechanics via Microsoft.AspNetCore.RateLimiting middleware to shield API endpoints from brute force vectors."
+  },
+  {
+    "slug": "xml-external-entity-injection-java",
+    "vulnerability": "XML External Entity (XXE) Injection",
+    "framework": "Java DocumentBuilder",
+    "severity": "CRITICAL",
+    "remediation": "Disable external DTD entity validation completely on your DocumentBuilderFactory setup instance by invoking setFeature() configuration locks."
+  },
+  {
+    "slug": "security-misconfiguration-nginx",
+    "vulnerability": "Information Disclosure Via Server Headers",
+    "framework": "Nginx Web Platform",
+    "severity": "LOW",
+    "remediation": "Hide server version string allocations from browser network trace contexts by setting the 'server_tokens off;' directive rule inside the config block."
+  },
+  {
+    "slug": "open-redirect-flask",
+    "vulnerability": "Unvalidated URL Open Redirection",
+    "framework": "Python Flask",
+    "severity": "MEDIUM",
+    "remediation": "Validate target redirection route variables against a localized application routing index before triggering global flask.redirect() instructions."
+  },
+  {
+    "slug": "unencrypted-communication-node",
+    "vulnerability": "Cleartext HTTP Network Communication",
+    "framework": "Node.js HTTP Server",
+    "severity": "HIGH",
+    "remediation": "Migrate your networking architecture to the native HTTPS framework container layer. Enforce absolute Transport Layer Security (TLS v1.3) protocols."
+  },
+  {
+    "slug": "prototype-pollution-lodash",
+    "vulnerability": "Object Prototype Pollution",
+    "framework": "Node.js Lodash Utilities",
+    "severity": "HIGH",
+    "remediation": "Sanitize target key tracking assignments or upgrade base package models to versioning configurations that actively intercept '__proto__' mutations."
+  },
+  {
+    "slug": "insecure-direct-object-reference-php",
+    "vulnerability": "Insecure Direct Object Reference (IDOR)",
+    "framework": "PHP CodeIgniter",
+    "severity": "CRITICAL",
+    "remediation": "Implement an explicit verification mapping layer comparing user session permission markers with the requested database row identifier sequence."
+  },
+  {
+    "slug": "uncontrolled-resource-consumption-go",
+    "vulnerability": "Uncontrolled Resource Consumption",
+    "framework": "Go Net/HTTP Pack",
+    "severity": "HIGH",
+    "remediation": "Explicitly configure ReadTimeout, WriteTimeout, and IdleTimeout values on your custom http.Server configuration struct to avoid slowloris exhaustion."
+  }
+]
