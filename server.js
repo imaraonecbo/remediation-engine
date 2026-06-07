@@ -30,12 +30,12 @@ const requestRateTracker = {};
 function systemSpamGuard(req, res, next) {
     const clientIP = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
     const now = Date.now();
-    
+
     if (!requestRateTracker[clientIP]) {
         requestRateTracker[clientIP] = { timestamp: now, actions: 1 };
         return next();
     }
-    
+
     if (now - requestRateTracker[clientIP].timestamp < 60000) {
         requestRateTracker[clientIP].actions++;
         if (requestRateTracker[clientIP].actions > 30) {
@@ -88,11 +88,11 @@ async function acquireSecureGatewayToken() {
 // CORE PROCESSING MATRIX
 // ============================================================================
 function runServiceAnalysis(serviceId, payload) {
-    const analysisManifest = { 
-        signature: crypto.createHash('sha256').update(payload).digest('hex'), 
+    const analysisManifest = {
+        signature: crypto.createHash('sha256').update(payload).digest('hex'),
         threatsIsolated: []
     };
-    
+
     switch(serviceId) {
         case 'decompiler':
             if (/SELECT\s+.*\s+FROM/i.test(payload) && /(\+.*\bquery\b|\$\{.*\})/i.test(payload)) {
@@ -196,7 +196,7 @@ app.post('/api/billing/order/capture', async (req, res) => {
 // ============================================================================
 app.get('/remediation/:slug', (req, res) => {
     const pageData = seoData.find(p => p.slug === req.params.slug);
-    
+
     if (!pageData) {
         return res.status(404).send(`
             <body style="background:#020617; color:#94a3b8; font-family:sans-serif; display:flex; justify-content:center; align-items:center; height:100vh; margin:0;">
@@ -220,13 +220,13 @@ app.get('/remediation/:slug', (req, res) => {
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen selection:bg-cyan-500 selection:text-slate-950">
     <div class="max-w-4xl mx-auto px-6 py-12">
-        <a href="/" class="text-xs font-mono text-cyan-400 hover:underline">← BACK TO SYSTEM CORE</a>
-        
+        <a href="/" class="text-xs font-mono text-cyan-400 hover:underline">â† BACK TO SYSTEM CORE</a>
+
         <div class="mt-8 bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl">
             <div class="inline-block bg-red-500/10 border border-red-500/30 text-red-400 font-mono text-[10px] px-2.5 py-1 rounded mb-4 uppercase tracking-widest">
                 Threat Classification: ${pageData.severity}
             </div>
-            
+
             <h1 class="text-2xl md:text-4xl font-black tracking-tight text-white mb-2">
                 Resolving <span class="text-cyan-400">${pageData.vulnerability}</span> inside <span class="text-indigo-400">${pageData.framework}</span> Pipelines
             </h1>
@@ -289,8 +289,8 @@ app.get('/', (req, res) => {
 
     <header class="relative max-w-4xl mx-auto text-center px-6 pt-20 pb-12 flex flex-col items-center">
         <div class="inline-flex items-center space-x-2 bg-slate-900 border border-slate-800 rounded-full px-3 py-1 mb-6 text-[11px] font-mono tracking-wide text-slate-400">
-            <span class="text-amber-400">⚡ API Security Matrix</span>
-            <span>•</span>
+            <span class="text-amber-400">âš¡ API Security Matrix</span>
+            <span>â€¢</span>
             <span>Version 2.4 Structural Deployment Live</span>
         </div>
         <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-none bg-gradient-to-b from-white via-slate-200 to-slate-500 bg-clip-text text-transparent mb-6">
@@ -309,7 +309,7 @@ app.get('/', (req, res) => {
             <h2 class="text-xs font-mono tracking-[0.2em] uppercase text-cyan-400 font-bold">Comprehensive Protection Services</h2>
             <p class="text-slate-400 text-sm mt-1">Multi-tier specialized pipelines built to dissect specific target vectors.</p>
         </div>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="bg-slate-900/50 border border-slate-900 rounded-xl p-5 hover:border-slate-800 transition-colors group">
                 <div class="h-8 w-8 bg-cyan-500/10 rounded flex items-center justify-center text-cyan-400 font-mono text-sm font-bold mb-4 group-hover:bg-cyan-500/20">A</div>
@@ -334,7 +334,7 @@ app.get('/', (req, res) => {
 
     <section id="workspace" class="max-w-4xl mx-auto px-6 py-12 w-full flex-1">
         <div class="bg-slate-900 border border-slate-800/80 rounded-2xl shadow-2xl overflow-hidden">
-            
+
             <div class="bg-slate-950 px-5 py-4 border-b border-slate-800/50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                 <div class="flex items-center space-x-2">
                     <span class="w-2.5 h-2.5 rounded-full bg-red-500/30"></span>
@@ -342,7 +342,7 @@ app.get('/', (req, res) => {
                     <span class="w-2.5 h-2.5 rounded-full bg-green-500/30"></span>
                     <span class="text-xs font-mono text-slate-400 ml-2">mainframe_console.sh</span>
                 </div>
-                
+
                 <div class="flex items-center space-x-2">
                     <label class="text-[10px] font-mono text-slate-500 uppercase tracking-wider">Engine Protocol:</label>
                     <select id="engineServiceSelector" class="bg-slate-900 border border-slate-800 rounded px-2.5 py-1 font-mono text-xs text-cyan-400 outline-none focus:border-cyan-500/50">
@@ -356,7 +356,7 @@ app.get('/', (req, res) => {
             <div class="p-6">
                 <p class="text-xs text-slate-400 font-mono mb-2">// Input configuration, server scripts or routing models directly below for dissection:</p>
                 <textarea id="targetTerminalInput" class="w-full h-48 bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-xs text-emerald-400 focus:outline-none focus:border-cyan-500/50 transition-colors resize-none placeholder-slate-800" placeholder="// Insert payload data strings here..."></textarea>
-                
+
                 <button onclick="triggerAutonomousTelemetryAnalysis()" class="w-full mt-4 bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-slate-950 font-black tracking-widest text-xs uppercase py-4 rounded-lg shadow-lg shadow-cyan-900/10 transition-transform active:scale-[0.99]">
                     Initialize Core Diagnostic Sequence
                 </button>
@@ -364,7 +364,7 @@ app.get('/', (req, res) => {
         </div>
 
         <div id="viralShareBlock" class="hidden mt-6 bg-gradient-to-r from-slate-900 via-indigo-950/30 to-slate-900 border-2 border-amber-500/30 rounded-xl p-6 text-center animate-fade-in">
-            <div class="h-8 w-8 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto text-xs font-mono mb-3">⚡</div>
+            <div class="h-8 w-8 bg-amber-500/10 border border-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto text-xs font-mono mb-3">âš¡</div>
             <h4 class="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">Evaluation Scan Allocations Expired</h4>
             <p class="text-xs text-slate-400 my-2 max-w-md mx-auto leading-relaxed">
                 You've run out of baseline credits! Share a validation reference of DefconShield on X (Twitter) to instantly inject <span class="text-cyan-400 font-bold">1 Extra Diagnostic Scan Credit</span> directly into your active session matrix.
@@ -383,9 +383,9 @@ app.get('/', (req, res) => {
 
         <div id="diagnosticResultsWrapper" class="hidden mt-6 bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl animate-fade-in">
             <div class="flex items-center space-x-2 text-cyan-400 font-mono text-xs font-bold tracking-widest uppercase mb-4">
-                <span>[✓] Structural Evaluation Completed Successfully</span>
+                <span>[âœ“] Structural Evaluation Completed Successfully</span>
             </div>
-            
+
             <div class="bg-slate-950 border border-slate-800 rounded-lg p-4 font-mono text-xs space-y-2 text-slate-300 mb-6">
                 <div><span class="text-slate-500">PAYLOAD HASH :</span> <span id="outSignatureId" class="text-slate-400"></span></div>
                 <div><span class="text-slate-500">ISOLATED VECTORS:</span></div>
@@ -413,17 +413,17 @@ app.get('/', (req, res) => {
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-            
+
             <div class="bg-slate-900/30 border border-slate-900 rounded-2xl p-6 flex flex-col justify-between">
                 <div>
                     <h3 class="font-mono text-xs tracking-wider uppercase text-slate-400 font-bold">Standard Sandbox</h3>
                     <div class="text-2xl font-bold text-slate-100 mt-2">$0 <span class="text-xs text-slate-500 font-normal">/ non-commercial</span></div>
                     <p class="text-xs text-slate-500 mt-3 leading-relaxed">Perfect for exploratory infrastructure tracing and testing foundational Express framework parameter queries.</p>
                     <ul class="text-xs text-slate-400 space-y-2 mt-6 border-t border-slate-800/60 pt-4 font-mono">
-                        <li class="text-cyan-400">✓ 1 Total System Scan Chance</li>
-                        <li>✓ Access to Service A Controls</li>
-                        <li class="text-slate-600">✕ Cryptographic Token Hardener</li>
-                        <li class="text-slate-600">✕ Custom Hot-Patch Delivery</li>
+                        <li class="text-cyan-400">âœ“ 1 Total System Scan Chance</li>
+                        <li>âœ“ Access to Service A Controls</li>
+                        <li class="text-slate-600">âœ• Cryptographic Token Hardener</li>
+                        <li class="text-slate-600">âœ• Custom Hot-Patch Delivery</li>
                     </ul>
                 </div>
                 <a href="#workspace" class="block w-full text-center bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs py-3 rounded mt-8 transition-colors">Launch Core Sandbox</a>
@@ -436,10 +436,10 @@ app.get('/', (req, res) => {
                     <div class="text-3xl font-black text-slate-100 mt-2">$49.00 <span class="text-xs text-slate-500 font-normal">/ monthly user key</span></div>
                     <p class="text-xs text-slate-400 mt-3 leading-relaxed">Complete structural automation and deep token validation rules built for deployment scaling and startup validation.</p>
                     <ul class="text-xs text-slate-300 space-y-2 mt-6 border-t border-slate-800 pt-4 font-mono">
-                        <li class="text-cyan-400">✓ Unlimited Execution Cycles</li>
-                        <li class="text-cyan-400">✓ Service A + Service B Access</li>
-                        <li class="text-cyan-400">✓ Full Telemetry Logs Output</li>
-                        <li class="text-cyan-400">✓ Automated Middleware Patching</li>
+                        <li class="text-cyan-400">âœ“ Unlimited Execution Cycles</li>
+                        <li class="text-cyan-400">âœ“ Service A + Service B Access</li>
+                        <li class="text-cyan-400">âœ“ Full Telemetry Logs Output</li>
+                        <li class="text-cyan-400">âœ“ Automated Middleware Patching</li>
                     </ul>
                 </div>
                 <div class="mt-8">
@@ -453,10 +453,10 @@ app.get('/', (req, res) => {
                     <div class="text-2xl font-bold text-slate-100 mt-2">$199.00 <span class="text-xs text-slate-500 font-normal">/ runtime cluster</span></div>
                     <p class="text-xs text-slate-500 mt-3 leading-relaxed">Full coverage including HTTP server header compliance protocols and manual review configurations for maximum security validation.</p>
                     <ul class="text-xs text-slate-400 space-y-2 mt-6 border-t border-slate-800/60 pt-4 font-mono">
-                        <li class="text-indigo-400">✓ All Platforms & Pipeline Services</li>
-                        <li class="text-indigo-400">✓ Full Compliance Reporting</li>
-                        <li class="text-indigo-400">✓ Direct Unredacted Asset Sync</li>
-                        <li class="text-indigo-400">✓ Priority Token Generation Hooks</li>
+                        <li class="text-indigo-400">âœ“ All Platforms & Pipeline Services</li>
+                        <li class="text-indigo-400">âœ“ Full Compliance Reporting</li>
+                        <li class="text-indigo-400">âœ“ Direct Unredacted Asset Sync</li>
+                        <li class="text-indigo-400">âœ“ Priority Token Generation Hooks</li>
                     </ul>
                 </div>
                 <div class="mt-8">
@@ -496,112 +496,102 @@ app.get('/', (req, res) => {
             const screen = document.getElementById('liveLogsConsole');
             screen.style.display = 'block';
             const logEntry = document.createElement('div');
-            logEntry.className = "py-0.5 border-b border-slate-950";
-            logEntry.innerText = \`[Telemetry Logs] \${textStr}\`;
+            logEntry.className = "text-cyan-400 font-mono text-[11px] leading-relaxed py-0.5";
+            logEntry.innerText = textStr;
             screen.appendChild(logEntry);
             screen.scrollTop = screen.scrollHeight;
         }
 
         async function triggerAutonomousTelemetryAnalysis() {
-            const inputVal = document.getElementById('targetTerminalInput').value;
-            const chosenProtocol = document.getElementById('engineServiceSelector').value;
-
-            if (inputVal.trim().length < 15) {
-                alert("Evaluation script input must match structural criteria sizes.");
-                return;
-            }
+            const targetPayload = document.getElementById('targetTerminalInput').value;
+            const chosenService = document.getElementById('engineServiceSelector').value;
+            const logConsole = document.getElementById('liveLogsConsole');
+            const resultsWrapper = document.getElementById('diagnosticResultsWrapper');
+            const threatContainer = document.getElementById('threatReportArrayContainer');
+            
+            resultsWrapper.style.display = 'none';
+            logConsole.innerHTML = '';
+            threatContainer.innerHTML = '';
 
             if (!userStateMatrix.isLicensedAccount && userStateMatrix.scansExecutedCount >= 1) {
-                appendConsoleLogLine("⚠️ SECURITY ENGINE EXCEPTION: FREE EVALUATION ATTEMPTS CONSUMED.");
-                appendConsoleLogLine("↳ Action path halted. Subscription licensing registration is mandatory to run further tasks.");
-                
-                document.getElementById('diagnosticResultsWrapper').style.display = 'none';
-                document.getElementById('viralShareBlock').classList.remove('hidden');
-                document.getElementById('viralShareBlock').scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('viralShareBlock').style.display = 'block';
+                appendConsoleLogLine("[FATAL] Baseline diagnostic allocation exhausted. Premium user key or reference injection required.");
                 return;
             }
 
-            if (!userStateMatrix.isLicensedAccount) {
-                if (chosenProtocol === 'jwt' || chosenProtocol === 'headers') {
-                    alert(\`The requested tracking utility [\${chosenProtocol.toUpperCase()}] belongs strictly to the premium tiers. Please complete payment or select Service A.\`);
-                    document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
-                    return;
-                }
-            }
-
-            document.getElementById('diagnosticResultsWrapper').style.display = 'none';
-            document.getElementById('liveLogsConsole').innerText = '';
-            appendConsoleLogLine("Establishing direct trace pipeline link array...");
-            appendConsoleLogLine("Parsing data models against signature index databases...");
+            appendConsoleLogLine("[INIT] Launching zero-trust core security handshake...");
+            appendConsoleLogLine("[INFO] Targeting cluster vector protocol: " + chosenService.toUpperCase());
+            appendConsoleLogLine("[PROCESSING] Dissecting input data streams for AST structures...");
 
             try {
                 const response = await fetch('/api/engine/evaluate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ targetPayload: inputVal, chosenService: chosenProtocol })
+                    body: JSON.stringify({ targetPayload, chosenService })
                 });
-                
-                const reportData = await response.json();
-                
+
                 if (!response.ok) {
-                    appendConsoleLogLine(\`[ERROR] Server returned failure flag: \${reportData.error}\`);
-                    return;
+                    const errData = await response.json();
+                    throw new Error(errData.error || "Subsystem processing failure.");
                 }
+
+                const data = await response.json();
+                appendConsoleLogLine("[SUCCESS] Evaluation matrix complete. Compiling signatures.");
 
                 if (!userStateMatrix.isLicensedAccount) {
                     userStateMatrix.scansExecutedCount++;
                     localStorage.setItem('saas_runtime_metric', userStateMatrix.scansExecutedCount.toString());
-                    document.getElementById('trialStatusBadge').innerText = "0 FREE SCANS REMAINING - ACCESS REJECTED";
-                    document.getElementById('trialStatusBadge').className = "bg-red-500/10 border border-red-500/30 text-red-400 px-2.5 py-1 rounded font-mono text-[10px]";
+                    if (userStateMatrix.scansExecutedCount >= 1) {
+                        document.getElementById('trialStatusBadge').innerText = "0 FREE SCANS REMAINING";
+                        document.getElementById('trialStatusBadge').className = "bg-red-500/10 border border-red-500/30 text-red-400 px-2.5 py-1 rounded font-mono text-[10px]";
+                    }
                 }
 
-                appendConsoleLogLine("Decompilation sequence finalized. Formatting data report...");
+                document.getElementById('outSignatureId').innerText = data.signature;
                 
-                document.getElementById('outSignatureId').innerText = reportData.signature;
-                const reportsBox = document.getElementById('threatReportArrayContainer');
-                reportsBox.innerHTML = '';
-
-                reportData.threatsIsolated.forEach(alertItem => {
-                    const line = document.createElement('div');
-                    line.className = alertItem.level === 'CRITICAL' ? "text-red-400 font-bold" : alertItem.level === 'HIGH' ? "text-amber-400 font-medium" : "text-emerald-400";
-                    line.innerText = \`• [\${alertItem.level}] \${alertItem.id} ➔ \${alertItem.title}\`;
-                    reportsBox.appendChild(line);
+                data.threatsIsolated.forEach(threat => {
+                    let badgeColor = 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400';
+                    if (threat.level === 'CRITICAL') badgeColor = 'bg-red-500/10 border-red-500/30 text-red-400';
+                    if (threat.level === 'HIGH') badgeColor = 'bg-amber-500/10 border-amber-500/30 text-amber-400';
+                    if (threat.level === 'MEDIUM') badgeColor = 'bg-yellow-500/10 border-yellow-500/30 text-yellow-400';
+                    
+                    const item = document.createElement('div');
+                    item.className = "flex flex-col sm:flex-row sm:items-center gap-2 py-1.5 border-b border-slate-900";
+                    item.innerHTML = '<span class="inline-block px-2 py-0.5 rounded text-[9px] font-mono border ' + badgeColor + '">' + threat.level + '</span><span class="text-slate-200 font-mono text-xs">[' + threat.id + '] ' + threat.title + '</span>';
+                    threatContainer.appendChild(item);
                 });
 
-                document.getElementById('diagnosticResultsWrapper').style.display = 'block';
-                document.getElementById('diagnosticResultsWrapper').scrollIntoView({ behavior: 'smooth' });
-
-            } catch(err) {
-                appendConsoleLogLine("❌ CRITICAL ERROR: Connection handshake with internal processing node dropped.");
+                resultsWrapper.style.display = 'block';
+            } catch (err) {
+                appendConsoleLogLine("[CRITICAL FAILURE] " + err.message);
             }
         }
 
         function simulateViralTweetShare() {
-            const shareText = encodeURIComponent("Auditing my application pipelines and code vulnerabilities with DefconShield.Pro! Check out the autonomous security diagnostic console:");
-            window.open(`https://twitter.com/intent/tweet?text=${shareText}`, '_blank');
-            
-            userStateMatrix.scansExecutedCount = 0; 
-            localStorage.setItem('saas_runtime_metric', '0');
-            
-            alert("Growth Engine: Share confirmation handshake accepted! 1 Bonus Scan Credit has been initialized.");
-            window.location.reload();
+            appendConsoleLogLine("[TELEMETRY] Intercepting social broadcast webhooks...");
+            setTimeout(() => {
+                userStateMatrix.scansExecutedCount = 0;
+                localStorage.setItem('saas_runtime_metric', '0');
+                document.getElementById('viralShareBlock').style.display = 'none';
+                document.getElementById('trialStatusBadge').innerText = "1 FREE SCAN ALLOCATED (BONUS INJECTED)";
+                document.getElementById('trialStatusBadge').className = "bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 px-2.5 py-1 rounded font-mono text-[10px]";
+                appendConsoleLogLine("[SUCCESS] Reference validated. 1 credit hot-swapped into session matrix.");
+            }, 1500);
         }
 
-        let activeBilledTierContext = null;
-
-        function engagePaymentProcessingGateway(tierKey) {
-            activeBilledTierContext = tierKey;
-            const billingShield = document.getElementById('globalBillingCheckoutContainer');
-            const descriptionBox = document.getElementById('billingDescriptionField');
+        function engagePaymentProcessingGateway(tier) {
+            const container = document.getElementById('globalBillingCheckoutContainer');
+            const desc = document.getElementById('billingDescriptionField');
+            const anchor = document.getElementById('paypal-button-placement-anchor');
             
-            const layoutTitles = { professional: "Professional Subscription Shield Access ($49.00 USD / mo)", enterprise: "Enterprise Defense Core Configuration License ($199.00 USD)" };
-            descriptionBox.innerText = \`Initializing standard settlement protocols for the: \${layoutTitles[tierKey]}. Configuration fields lock dynamically following authorization receipt confirmations.\`;
+            container.style.display = 'block';
+            anchor.innerHTML = '';
             
-            billingShield.style.display = 'block';
-            billingShield.scrollIntoView({ behavior: 'smooth' });
-
-            if (window.paypalInterfaceInitializedFlag) return;
-            window.paypalInterfaceInitializedFlag = true;
+            if (tier === 'professional') {
+                desc.innerText = "Activating Professional Shield license bundle. Authorization charge: $49.00 USD / month via card or digital banking.";
+            } else {
+                desc.innerText = "Activating Enterprise Defense cluster array. Authorization charge: $199.00 USD via card or digital banking.";
+            }
 
             paypal.Buttons({
                 createOrder: async function() {
@@ -609,33 +599,37 @@ app.get('/', (req, res) => {
                         const res = await fetch('/api/billing/order/create', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ targetPlanTier: activeBilledTierContext })
+                            body: JSON.stringify({ targetPlanTier: tier })
                         });
                         const order = await res.json();
                         return order.id;
-                    } catch(err) {
-                        alert("Failed to build active token pipeline order context mapping.");
+                    } catch (err) {
+                        appendConsoleLogLine("[BILLING ERROR] Could not initialize gateway checkout process.");
                     }
                 },
-                onApprove: async function(data, actions) {
+                onApprove: async function(data) {
                     try {
+                        appendConsoleLogLine("[GATEWAY] Initializing signature verification chain...");
                         const res = await fetch('/api/billing/order/capture', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ orderID: data.orderID })
                         });
-                        const collectionStatus = await res.json();
+                        const receipt = await res.json();
                         
-                        if (collectionStatus.status === 'COMPLETED') {
-                            localStorage.setItem('saas_licensing_token', collectionStatus.licensingKey);
-                            localStorage.setItem('saas_active_tier', activeBilledTierContext);
-                            alert(\`Transaction Verified Successfully! Licensing profile updated to [\${activeBilledTierContext.toUpperCase()}]. The platform limits have been indefinitely lifted.\`);
-                            window.location.reload();
-                        } else {
-                            alert("Transaction settlement was held by validation filters.");
-                        }
-                    } catch(err) {
-                        alert("Integrity clearance failed while confirming incoming order verification.");
+                        localStorage.setItem('saas_licensing_token', receipt.licensingKey);
+                        localStorage.setItem('saas_active_tier', tier);
+                        
+                        userStateMatrix.isLicensedAccount = true;
+                        userStateMatrix.activeSubscriptionTier = tier;
+                        
+                        container.style.display = 'none';
+                        document.getElementById('trialStatusBadge').innerText = "ACCOUNT ACCESS STATE: PREPAID USER (" + tier.toUpperCase() + ")";
+                        document.getElementById('trialStatusBadge').className = "bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-2.5 py-1 rounded font-mono text-[10px]";
+                        
+                        appendConsoleLogLine("[SUCCESS] Settlement completed. Activation Token: " + receipt.licensingKey);
+                    } catch (err) {
+                        appendConsoleLogLine("[BILLING ERROR] Final ledger collection capture pipeline crashed.");
                     }
                 }
             }).render('#paypal-button-placement-anchor');
@@ -647,5 +641,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`[SYS ON] Operational on Network Port Context: ${PORT}`);
+    console.log(`[SYSTEM ONLINE] Autonomous defense engine active on port ${PORT}`);
 });
